@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Promax 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to right, #ffe6f0, #fff5f8);
+      overflow-x: hidden;
+    }
+    .lock-screen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #fff0f5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .lock-screen button {
+      margin-top: 20px;
+    }
+    .hidden { display: none; }
+    h1, h2, h3 { color: #ff69b4; text-align: center; }
+    section { padding: 40px; max-width: 800px; margin: auto; text-align: center; }
+    .cake { font-size: 100px; text-align: center; }
+    .surprise-box, .puzzle, .card, .letter, .thankyou, .step { display: none; }
+    .active { display: block; }
+    audio { display: block; margin: 0 auto; }
+    .nav-btn { margin-top: 30px; display: block; }
+    .quiz-question { margin-bottom: 20px; }
+    .quiz-result { margin-top: 20px; font-weight: bold; color: #d63384; }
+  </style>
+</head>
+<body>
+  <!-- 🔐 Lock Screen -->
+  <div class="lock-screen" id="lockScreen">
+    <h2>Enter the secret password 💖</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password..." />
+    <button onclick="checkPassword()">Unlock</button>
+  </div>
+
+  <!-- Main Multi-Step Content -->
+  <div id="mainContent" class="hidden">
+    <!-- Step 1: Birthday Message -->
+    <section id="step1" class="step active">
+      <h1>Happy Birthday Promax! 🎉</h1>
+      <div class="cake">🎂🕯️</div>
+      <p>Blow out the candle and make a wish ✨</p>
+      <button class="nav-btn" onclick="nextStep(2)">Next ➡️</button>
+    </section>
+
+    <!-- Step 2: Surprise Section -->
+    <section id="step2" class="step">
+      <h2>🎉 Surprise! 🎉</h2>
+      <p>You make the world brighter just by being you. Enjoy your special day, Promax!</p>
+      <button class="nav-btn" onclick="nextStep(3)">Next ➡️</button>
+    </section>
+
+    <!-- Step 3: Personal Letter -->
+    <section id="step3" class="step letter">
+      <h2>A Letter for You</h2>
+      <p>Dear Promax,</p>
+      <p>Today is all about you. You light up the lives of everyone around you — especially mine. This little website is just a small way to say how much you mean to me. I hope it brings a smile to your face. 🐾</p>
+      <p>Love, <br />Panda 🐼</p>
+      <button class="nav-btn" onclick="nextStep(4)">Next ➡️</button>
+    </section>
+
+    <!-- Step 4: Secret Puzzle -->
+    <section id="step4" class="step">
+      <h2>🧩 Secret Message Puzzle</h2>
+      <p>What do you get when you unscramble this? <strong>OYU VEOL</strong></p>
+      <input type="text" id="puzzleAnswer" placeholder="Your answer..." />
+      <button onclick="checkPuzzle()">Submit</button>
+      <p id="puzzleResult"></p>
+      <button class="nav-btn" onclick="nextStep(5)">Next ➡️</button>
+    </section>
+
+    <!-- Step 5: Greeting Card -->
+    <section id="step5" class="step card">
+      <h2>Your Greeting Card 💌</h2>
+      <p>🎉 Happy Birthday, Promax! 🎉</p>
+      <p>Wishing you a year full of love, laughter, and cat cuddles 🐱</p>
+      <button class="nav-btn" onclick="nextStep(6)">Next ➡️</button>
+    </section>
+
+    <!-- Step 6: Music -->
+    <section id="step6" class="step">
+      <h2>Your Birthday Song 🎶</h2>
+      <audio controls autoplay loop>
+        <source src="https://www2.cs.uic.edu/~i101/SoundFiles/HappyBirthday.mid" type="audio/mid">
+        Your browser does not support the audio element.
+      </audio>
+      <button class="nav-btn" onclick="nextStep(7)">Next ➡️</button>
+    </section>
+
+    <!-- Step 7: Quiz Section -->
+    <section id="step7" class="step">
+      <h2>💡 How Well Do You Know Panda?</h2>
+      <form id="quizForm">
+        <div class="quiz-question">
+          <p>1. Tea or Coffee?</p>
+          <label><input type="radio" name="q1" value="tea"> Tea</label>
+          <label><input type="radio" name="q1" value="coffee"> Coffee</label>
+        </div>
+        <div class="quiz-question">
+          <p>2. Cat or Dog?</p>
+          <label><input type="radio" name="q2" value="cat"> Cat</label>
+          <label><input type="radio" name="q2" value="dog"> Dog</label>
+        </div>
+        <div class="quiz-question">
+          <p>3. Beach or Mountains?</p>
+          <label><input type="radio" name="q3" value="beach"> Beach</label>
+          <label><input type="radio" name="q3" value="mountains"> Mountains</label>
+        </div>
+        <div class="quiz-question">
+          <p>4. Sunrise or Sunset?</p>
+          <label><input type="radio" name="q4" value="sunrise"> Sunrise</label>
+          <label><input type="radio" name="q4" value="sunset"> Sunset</label>
+        </div>
+        <div class="quiz-question">
+          <p>5. Pizza or Burger?</p>
+          <label><input type="radio" name="q5" value="pizza"> Pizza</label>
+          <label><input type="radio" name="q5" value="burger"> Burger</label>
+        </div>
+        <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+      </form>
+      <p id="quizResult" class="quiz-result"></p>
+    </section>
+
+    <!-- Step 8: Thank You -->
+    <section id="step8" class="step thankyou">
+      <h2>Thank You, Promax 💖</h2>
+      <p>For being amazing. For being you. Here's to more happy memories together!</p>
+    </section>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const pw = document.getElementById('passwordInput').value;
+      if (pw === 'panda123') {
+        document.getElementById('lockScreen').style.display = 'none';
+        document.getElementById('mainContent').classList.remove('hidden');
+      } else {
+        alert("Oops! That's not the right password.");
+      }
+    }
+
+    function checkPuzzle() {
+      const answer = document.getElementById('puzzleAnswer').value.trim().toLowerCase();
+      if (answer === 'you love') {
+        document.getElementById('puzzleResult').textContent = '💖 You got it! The secret is... I love you!';
+      } else {
+        document.getElementById('puzzleResult').textContent = 'Hmm... try again!';
+      }
+    }
+
+    function nextStep(step) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById(`step${step}`).classList.add('active');
+    }
+
+    function submitQuiz() {
+      const answers = {
+        q1: 'tea',
+        q2: 'cat',
+        q3: 'mountains',
+        q4: 'sunset',
+        q5: 'pizza'
+      };
+      let score = 0;
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) {
+          score++;
+        }
+      }
+      document.getElementById('quizResult').innerText = `You got ${score}/5 right! 🎯\n${score === 5 ? 'Wow! You know Panda so well! 💖' : 'Nice try! Panda is full of surprises! 🐼'}`;
+      setTimeout(() => nextStep(8), 3000);
+    }
+  </script>
+</body>
+</html>
